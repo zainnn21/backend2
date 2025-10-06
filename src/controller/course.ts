@@ -12,6 +12,8 @@ export const getCourseById = (req: Request, res: Response) => {
   });
 };
 
-export const createNewCourse = (req: Request, res: Response) =>{
-  
-}
+export const createNewCourse = (req: Request, res: Response) => {};
+
+export const updateCourseById = (req: Request, res: Response) => {};
+
+export const deleteCourseById = (req: Request, res: Response) =>{};
