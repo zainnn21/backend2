@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun --watch src/app.ts"
+    "dev": "bun --watch src/app.ts",
+    "start": "bun src/app.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -15,6 +16,8 @@
   },
   "dependencies": {
     "@types/express": "^5.0.3",
-    "express": "^5.1.0"
+    "@types/pg": "^8.15.5",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
   }
 }
