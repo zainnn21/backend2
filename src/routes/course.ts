@@ -7,5 +7,5 @@ router.get("/", courseController.getAllCourses);
 router.get("/:id", courseController.getCourseById);
 router.post("/", courseController.createNewCourse);
 router.put("/:id", courseController.updateCourseById);
-router.put("/:id", courseController.deleteCourseById);
+router.delete("/:id", courseController.deleteCourseById);
 export default router;

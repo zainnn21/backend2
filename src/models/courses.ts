@@ -57,3 +57,10 @@ export const updateCourseById = async (body: CourseDTO, courseId: number) => {
   ];
   return await pool.query(SQLQuery, value);
 };
+
+export const deleteCourseById = async (courseId: number) => {
+  const SQLQuery = `delete from course_base where course_id=$1 RETURNING *;`;
+  const value = [courseId];
+
+  return await pool.query(SQLQuery, value);
+};

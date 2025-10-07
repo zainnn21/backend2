@@ -36,12 +36,12 @@ export const createNewCourse = async (req: Request, res: Response) => {
   }
 };
 
-export const updateCourseById = (req: Request, res: Response) => {
+export const updateCourseById = async (req: Request, res: Response) => {
   try {
     const body: CourseDTO = req.body;
-    courseModels.updateCourseById(body, Number(req.params.id));
+    await courseModels.updateCourseById(body, Number(req.params.id));
     res.json({
-      message: "update course by id",
+      message: "update course Success",
       data: body,
     });
   } catch (error) {
@@ -50,4 +50,15 @@ export const updateCourseById = (req: Request, res: Response) => {
   }
 };
 
-export const deleteCourseById = (req: Request, res: Response) => {};
+export const deleteCourseById = async (req: Request, res: Response) => {
+  try {
+    await courseModels.deleteCourseById(Number(req.params.id));
+    res.json({
+      message: "delete Course Success",
+      data: null,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed delete data", serverError: error });
+  }
+};
