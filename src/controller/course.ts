@@ -23,7 +23,6 @@ export const getCourseById = (req: Request, res: Response) => {
 export const createNewCourse = async (req: Request, res: Response) => {
   try {
     const body: CourseDTO = req.body;
-    console.log("request body: ", body);
     await courseModels.createCourse(body);
     res.json({
       message: "create new course",
@@ -33,10 +32,22 @@ export const createNewCourse = async (req: Request, res: Response) => {
     console.log(error);
     res
       .status(500)
-      .json({ message: "Failed retrieving data", serverError: error });
+      .json({ message: "Failed create new data", serverError: error });
   }
 };
 
-export const updateCourseById = (req: Request, res: Response) => {};
+export const updateCourseById = (req: Request, res: Response) => {
+  try {
+    const body: CourseDTO = req.body;
+    courseModels.updateCourseById(body, Number(req.params.id));
+    res.json({
+      message: "update course by id",
+      data: body,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Failed update data", serverError: error });
+  }
+};
 
 export const deleteCourseById = (req: Request, res: Response) => {};

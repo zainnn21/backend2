@@ -38,3 +38,22 @@ export const createCourse = async (body: CourseDTO) => {
   ];
   return await pool.query(SQLQuery, values);
 };
+
+export const updateCourseById = async (body: CourseDTO, courseId: number) => {
+  const now = new Date().toISOString();
+  const updatedAt = now;
+
+  const SQLQuery = `update course_base set course_name=$1, description=$2, category_id=$3, price=$4, duration=$5, certificate=$6, "updatedat"=$7 where course_id=$8 RETURNING *;`;
+
+  const value = [
+    body.course_name,
+    body.description,
+    body.category_id,
+    body.price,
+    body.duration,
+    body.certificate,
+    updatedAt,
+    courseId,
+  ];
+  return await pool.query(SQLQuery, value);
+};
