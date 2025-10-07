@@ -1,13 +1,13 @@
 export interface CourseDTO {
-  courseId: number;
-  courseName: string;
-  tutorName: string;
+  course_id: number;
+  course_name: string;
   description: string;
-  userId: number;
+  user_id: number;
   rating: number;
-  reviewCount: number;
+  category_id: number;
+  review_count: number;
   price: number;
-  Duration: number;
+  duration: number;
   certificate: boolean;
   createdAt: Date;
   updatedAt: Date;

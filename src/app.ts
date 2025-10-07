@@ -3,10 +3,14 @@ import courseRouter from "./routes/course";
 import { logRequest } from "./middleware/logs";
 
 const app = express();
+const PORT = process.env.PORT || 4000;
+
+// Tambahkan middleware untuk parsing JSON body
+app.use(express.json());
 
 app.use(logRequest);
 app.use("/course", courseRouter);
 
-app.listen(3000, () => {
-  console.log("server is running on port 3000");
+app.listen(PORT, () => {
+  console.log(`server is running on port ${PORT}`);
 });
