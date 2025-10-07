@@ -51,9 +51,38 @@ docker-compose up --build -d
 - **Application**: The application will be running and accessible at `http://localhost:3000`.
 - **Database**: The PostgreSQL database can be accessed from your host machine on `localhost:5433`.
 
+#### Using DBeaver (or other SQL Client)
+
+You can connect to the PostgreSQL database using any SQL client. Here are the settings for DBeaver:
+
+1.  Open DBeaver and create a new connection (`File > New > Database Connection`).
+2.  Select **PostgreSQL**.
+3.  On the "Main" tab, fill in the connection details:
+    - **Host**: `localhost`
+    - **Port**: `5433`
+    - **Database**: The value of `POSTGRES_DB` from your `.env` file (e.g., `edu_course_db`).
+    - **Username**: The value of `POSTGRES_USER` from your `.env` file (e.g., `user`).
+    - **Password**: The value of `POSTGRES_PASSWORD` from your `.env` file (e.g., `password`).
+4.  Click "Test Connection..." to verify, then click "Finish".
+
 ### Database Initialization
 
 On the first run, Docker Compose will automatically initialize the database. The `docker-compose.yml` file mounts the `./src/init` directory into the PostgreSQL container's initialization path (`/docker-entrypoint-initdb.d`). Any `.sql` scripts in that directory will be executed to create tables and seed initial data.
+
+The `init.sql` script will create the following tables:
+
+- `roles`
+- `user_base`
+- `profile_user`
+- `course_categories`
+- `course_base`
+- `orders`
+- `order_item`
+- `purchased_course`
+- `review_course`
+- `section_course`
+- `lesson_section`
+- `lesson_content`
 
 ### Stopping the Application
 
