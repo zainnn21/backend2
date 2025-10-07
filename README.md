@@ -84,6 +84,20 @@ The `init.sql` script will create the following tables:
 - `lesson_section`
 - `lesson_content`
 
+## API Endpoints & Testing
+
+This API provides several endpoints to manage course data.
+
+### Endpoints
+
+Here is a summary of the available endpoints for the `course` resource:
+
+-   `GET /course`: Get all course data.
+-   `GET /course/:id`: Get a specific course by ID.
+-   `POST /course`: Create a new course.
+-   `PUT /course/:id`: Update an existing course.
+-   `DELETE /course/:id`: Delete a course.
+
 ### Stopping the Application
 
 To stop and remove the containers, networks, and volumes, run:
