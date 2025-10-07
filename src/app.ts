@@ -5,7 +5,7 @@ import { logRequest } from "./middleware/logs";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-// Tambahkan middleware untuk parsing JSON body
+// middleware untuk parsing JSON body
 app.use(express.json());
 
 app.use(logRequest);
