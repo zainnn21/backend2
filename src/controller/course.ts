@@ -14,10 +14,21 @@ export const getAllCourses = async (req: Request, res: Response) => {
   }
 };
 
-export const getCourseById = (req: Request, res: Response) => {
-  res.json({
-    message: "get course by id",
-  });
+export const getCourseById = async(req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+    const result = await courseModels.getCourseById(id);
+    console.log(result);
+    res.json({
+      message: "get course by id",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Failed retrieving data", serverError: error });
+  }
 };
 
 export const createNewCourse = async (req: Request, res: Response) => {
@@ -39,7 +50,8 @@ export const createNewCourse = async (req: Request, res: Response) => {
 export const updateCourseById = async (req: Request, res: Response) => {
   try {
     const body: CourseDTO = req.body;
-    await courseModels.updateCourseById(body, Number(req.params.id));
+    const id = Number(req.params.id);
+    await courseModels.updateCourseById(body, id);
     res.json({
       message: "update course Success",
       data: body,
@@ -52,7 +64,8 @@ export const updateCourseById = async (req: Request, res: Response) => {
 
 export const deleteCourseById = async (req: Request, res: Response) => {
   try {
-    await courseModels.deleteCourseById(Number(req.params.id));
+    const id = Number(req.params.id);
+    await courseModels.deleteCourseById(id);
     res.json({
       message: "delete Course Success",
       data: null,

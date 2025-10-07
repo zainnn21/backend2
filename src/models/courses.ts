@@ -6,6 +6,13 @@ export const getAllCourses = async () => {
   return await pool.query(SQLQuery);
 };
 
+export const getCourseById = async (courseId: number) => {
+  const SQLQuery = `select * from course_base where course_id=$1;`;
+  const value = [courseId];
+
+  return await pool.query(SQLQuery, value);
+};
+
 export const createCourse = async (body: CourseDTO) => {
   const queryMaxId = "select max(course_id) from course_base";
   const maxIdResult = await pool.query(queryMaxId);
@@ -59,7 +66,7 @@ export const updateCourseById = async (body: CourseDTO, courseId: number) => {
 };
 
 export const deleteCourseById = async (courseId: number) => {
-  const SQLQuery = `delete from course_base where course_id=$1 RETURNING *;`;
+  const SQLQuery = `delete from course_base where course_id=$1`;
   const value = [courseId];
 
   return await pool.query(SQLQuery, value);
