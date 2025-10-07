@@ -3,7 +3,7 @@ import courseRouter from "./routes/course";
 import { logRequest } from "./middleware/logs";
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 
 // middleware untuk parsing JSON body
 app.use(express.json());
