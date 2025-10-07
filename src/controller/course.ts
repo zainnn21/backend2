@@ -19,10 +19,19 @@ export const getAllCourses = async (req: Request, res: Response) => {
 export const getCourseById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
     const result = await courseModels.getCourseById(id);
-    console.log(result);
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ message: `Course with id ${id} not found` });
+    }
+
     res.status(200).json({
-      message: "get course by id",
+      message: "Successfully retrieving data",
       data: result.rows,
     });
   } catch (error) {
@@ -36,15 +45,17 @@ export const getCourseById = async (req: Request, res: Response) => {
 export const createNewCourse = async (req: Request, res: Response) => {
   try {
     const body: CourseDTO = req.body;
-    if (!body) {
-      res.status(400).json({
-        message: "body is empty",
+    if (!body.course_name || !body.price) {
+      return res.status(400).json({
+        message:
+          "Request body is missing required fields (e.g., course_name, price)",
       });
     }
-    await courseModels.createCourse(body);
+    const result = await courseModels.createCourse(body);
+
     res.status(201).json({
-      message: "create new course",
-      data: body,
+      message: "Create new course success",
+      data: result.rows[0],
     });
   } catch (error) {
     console.log(error);
@@ -58,10 +69,21 @@ export const updateCourseById = async (req: Request, res: Response) => {
   try {
     const body: CourseDTO = req.body;
     const id = Number(req.params.id);
-    await courseModels.updateCourseById(body, id);
-    res.status(201).json({
-      message: "update course Success",
-      data: body,
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const result = await courseModels.updateCourseById(body, id);
+
+    if (result.rows.length === 0) {
+      return res
+        .status(404)
+        .json({ message: `Course with id ${id} not found` });
+    }
+
+    res.status(200).json({
+      message: "Update course success",
+      data: result.rows[0],
     });
   } catch (error) {
     console.log(error);
@@ -72,9 +94,19 @@ export const updateCourseById = async (req: Request, res: Response) => {
 export const deleteCourseById = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params.id);
-    await courseModels.deleteCourseById(id);
+    if (isNaN(id)) {
+      return res.status(400).json({ message: "Invalid ID format" });
+    }
+
+    const result = await courseModels.deleteCourseById(id);
+    if (result.rowCount === 0) {
+      return res
+        .status(404)
+        .json({ message: `Course with id ${id} not found` });
+    }
+
     res.status(200).json({
-      message: "delete Course Success",
+      message: "Delete course success",
       data: null,
     });
   } catch (error) {
